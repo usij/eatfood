@@ -1,0 +1,265 @@
+<!-- PAGE MAIN CONTENT -->
+<!DOCTYPE html>
+<head>
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script>
+	function initialize() { 
+	
+		var latitude = $("#restaurant").data("latitude");
+		var longitude =  $("#restaurant").data("longitude");
+		var myLatlng = new google.maps.LatLng(<%= @restaurant.latitude %> ,<%= @restaurant.longitude%>);		// 지도에 표시할 위치좌표
+		var mapOptions = {
+			zoom : 17,
+			center : myLatlng,
+			mapTypeId : google.maps.MapTypeId.ROADMAP
+		}
+		var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+		var companyIcon = new google.maps.MarkerImage(				// 표시하고 싶은 로고이미지
+				   "/img/logo.png",
+				   new google.maps.Size(128, 81)
+				);
+		var marker = new google.maps.Marker({
+			position : myLatlng,
+			icon : companyIcon,
+			map : map,
+			title : "timecoms"
+		});
+	}
+</script>
+</head>
+
+	<main class="main-content">
+
+		<!-- section INTRO -->
+		<section class="section-intro image-bg">
+			<header class="section-heading">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<h1>^__^</h1>
+						</div>
+					</div>
+				</div>
+			</header>
+			<span class="color-overlay-gradient gradient1"></span>
+		</section><!-- //section INTRO -->
+
+	
+		<!-- section PROPERTY DETAIL FULLWIDTH -->
+		<section class="section-properties section-property-details">
+			<!-- section heading -->
+			<header class="section-heading hidden">
+				<div class="container">
+					<div class="row">
+						<h2>Property Details</h2>
+						<img src="img/separation-header.png" alt="">
+					</div>
+				</div>
+			</header><!-- //section heading -->
+			<!-- BREADCRUMBS -->
+			<nav class="breadcrumbs">
+				<div class="container">
+					<div class="row">
+						<ol class="breadcrumb">
+							
+							<li class="active">자세히</li>
+						</ol>
+					</div>
+				</div>
+			</nav><!-- //BREADCRUMBS -->
+			<p><%= link_to "Write Review", new_restaurant_review_path(@restaurant), class: "btn btn-primary btn-large" %>
+			<!-- section content -->
+			<div class="section-content">
+				<div class="container">
+					<div class="property-details-content">
+						<!-- property images -->
+						<div id="properties-magnific-popup-gallery">
+							<div class="row">
+								<div class="col-md-9">
+									<a href="http://placehold.it/900x300" class="property-image-wrapper" title="Living Room #1">
+									    <hr>
+                                        <!-- Preview Image -->
+                                        <%= image_tag @restaurant.image_url %>
+                        
+                                        <hr>
+										
+										<span class="dark-overlay"></span>
+										<span class="item-link"></span>
+									</a>
+								</div>
+								<div class="col-md-3">
+									
+								</div>
+							</div>
+						</div><!-- //property images -->
+						<!-- property description -->
+						<div class="row">
+							<div class="col-md-12">
+								<article class="article-property-details">
+									<h1><b><%= @restaurant.name %></b>
+									<% if current_user.try(:admin?) %>
+										<small><%= link_to "Edit" ,edit_restaurant_path, class:"btn btn-primary btn-mini"%></small>
+										<small><%= link_to "Delete" , restaurant_path, method: :delete, data: {confirm:"Are you sure you want to delete?"} ,class:"btn btn-danger btn-mini"%></small>
+										</h1>
+									<% else%>
+									<%end %>
+									<span class="prop-price pull-right serif italic star-rating" data-score=<%= @avg_rating%>></span>
+									<h1>Reviews</h1>
+									<% if @reviews.blank? %>
+										<p>No reviews yet!</p>
+									<% else %>
+										<table class="table">
+											<thead>
+												<tr>
+													<th class="col-mid-3"></th>
+													<th class="col-mid-9"></th>
+												</tr>
+											</thead>
+											<tbody>
+												<% @reviews.each do |review| %>
+												<tr>
+													<td>
+														<h5><%= "#{review.user.first_name} #{review.user.last_name}" %></h5>
+													</td>
+													<td>
+														<div class="clearfix star-rating" data-score=<%= review.rating %>></div>
+														<%= review.comment %>
+													</td>
+												</tr>
+												<% end %>
+											</tbody>
+										</table>
+									<%end%>
+						
+									<p>
+									No Reviews Yet!!
+									</p>
+								</article>
+							</div>
+						</div><!-- //property description -->
+						<!-- property tabs -->
+						<div class="row">
+							<div class="col-md-12">
+								<!-- tabs control panel -->
+								<ul class="nav nav-tabs">
+									<li class="active"><a data-toggle="tab" href="#panel-property-details">Property Details</a></li>
+									
+								</ul><!-- //tabs control panel -->
+								<!-- tabs content -->
+								<div class="tab-content">
+									<!-- tab property details -->
+									<div id="panel-property-details" class="tab-pane in active">
+										<table class="table table-striped table-property">
+											<tbody>
+												<tr>
+													<td><span class="property-param">Category:</span> <span class="property-value"><%=@restaurant.category.name %></span></td>
+												</tr>
+												<tr>
+													<td><span class="property-param">Website:</span> <span class="property-value">For Sale</span></td>
+												</tr>
+												<tr>
+													<td><span class="property-param">Description:</span> <span class="property-value"><%=@restaurant.description %></span></td>
+												</tr>
+												<tr>
+													<td><span class="property-param">Phone:</span> <span class="property-value"><%=@restaurant.phone %></span></td>
+												</tr>
+												<tr>
+													<td><span class="property-param">Email:</span> <span class="property-value"><%=@restaurant.email %></span></td>
+												</tr>
+												<tr>
+													<td><span class="property-param">Address:</span> 
+													    <span class="property-value"><%=@restaurant.address1 %><br/>
+                                                                                    <%=@restaurant.address2 %><br/>
+                                                                                    <%=@restaurant.city %><br/>
+                                                                                    <%=@restaurant.state %><br/>
+                                                                                    <%=@restaurant.zipcode %><br/></span></td>
+												</tr>
+												
+												<tr>
+													<body onload="initialize()">
+ 														<div id="map_canvas" style="width: 645px; height: 300px;"></div>
+													</body>
+												</tr>
+											</tbody>
+										</table>
+									</div><!-- //tab property details -->
+									
+									
+									<!-- tab property map -->
+									<div id="panel-property-map" class="tab-pane fade">
+										<div class="google-map" id="property-map">
+												<body onload="initialize()">
+ 														ssss<div id="map_canvas" style="width: 645px; height: 300px;"></div>
+													</body>
+										</div>
+									</div><!-- //tab property map -->
+								
+									
+								
+							</div><!-- //tabs content -->
+						</div><!-- //property tabs -->
+						<!-- property social buttons -->
+						
+					</div>
+				</div>
+			</div><!-- //section content -->
+		</section><!-- //section PROPERTY DETAIL FULLWIDTH -->
+
+
+	</main><!-- //PAGE MAIN CONTENT -->
+	</html>
+	
+	
+	<!-- SCRIPTS -->
+
+	<!--<script src="js/modernizr.js"></script>-->
+	<!--<script src="libs/jquery/jquery-1.11.2.min.js"></script>-->
+	<!--<script src="js/plugins-scroll.js"></script>-->
+	<!--<script src="libs/waypoints/lib/waypoints.js"></script>-->
+	<!--<script src="js/jquery.counterup.js"></script>-->
+	<!--<script src="js/imagesloaded.pkgd.js"></script>-->
+	<!--<script src="libs/bootstrap/js/bootstrap.js"></script>-->
+	<!--<script src="libs/bootstrap-slider/bootstrap-slider.js"></script>-->
+	<!--<script src="js/jquery.equalheights.js"></script>-->
+	<!--<script src="libs/masonry-layout/dist/masonry.pkgd.js"></script>-->
+	<!--<script src="libs/magnific-popup/dist/jquery.magnific-popup.js"></script>-->
+	<!--<script src="js/common.js"></script>-->
+	<!-- PAGE CUSTOM SCRIPTS -->
+	<!--<script src="https://maps.googleapis.com/maps/api/js"></script>-->
+	<!--<script>-->
+		
+	   
+	<!--	 var locations = [-->
+	<!--	 ['Dongduk Women Univ.', 37.606616, 127.042294, 4],-->
+	<!--	s];-->
+
+	<!--	var map = new google.maps.Map(document.getElementById('contact-map'), {-->
+	<!--		zoom: 16,-->
+	<!--		center: new google.maps.LatLng(37.606616, 127.042294),-->
+	<!--		mapTypeId: google.maps.MapTypeId.ROADMAP-->
+	<!--	});-->
+
+	<!--	var infowindow = new google.maps.InfoWindow();-->
+
+	<!--	var marker, i;-->
+
+	<!--	for (i = 0; i < locations.length; i++) {  -->
+	<!--		marker = new google.maps.Marker({-->
+	<!--			position: new google.maps.LatLng(locations[i][1], locations[i][2]),-->
+	<!--			map: map-->
+	<!--		});-->
+
+	<!--		google.maps.event.addListener(marker, 'click', (function(marker, i) {-->
+	<!--			return function() {-->
+	<!--				infowindow.setContent(locations[i][0]);-->
+	<!--				infowindow.open(map, marker);-->
+	<!--			}-->
+	<!--		})(marker, i));-->
+	<!--	}-->
+		//the hack to make google map display correctly in bootstrap tabs
+	<!--	$("a[data-toggle='tab']").on('shown.bs.tab', function() {-->
+			/* Trigger map resize event */
+	<!--		google.maps.event.trigger(map, 'resize');-->
+	<!--		map.setCenter(myCenter);-->
+	<!--	});-->
+	<!--</script>-->

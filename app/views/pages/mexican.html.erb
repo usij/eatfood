@@ -1,0 +1,61 @@
+<main class="main-content">
+
+		<!-- section INTRO -->
+		<section class="section-intro image-bg">
+			<header class="section-heading">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<h1>Mexican Restaurant's Search</h1>
+						</div>
+					</div>
+				</div>
+			</header>
+			<span class="color-overlay-gradient gradient1"></span>
+		</section><!-- //section INTRO -->
+        
+        <hr>
+        <br><br><Br>
+        
+        <!-- section content -->
+			<div class="section-content">
+				<div class="container">
+					<div class="row">
+						<!-- item 1 -->
+						<% if @mexican_restaurants.blank? %>
+						    <h3> Couldn't find a restaurant with your seacrh criteria</h3>
+						<% else %>
+						    <% @mexican_restaurants.each do |restaurant| %>
+        						<div class="col-md-12">
+        							<div class="property-details">
+        								<div class="row">
+        									<div class="col-md-4 col-sm-6">
+        										<a href="#">
+        											<% if restaurant.image_url.present? %>
+        												<%= link_to image_tag(restaurant.image_url.to_s, :width => 370, :height => 210), restaurant %>
+        											
+	        											<span class="dark-overlay"></span>
+	        											<span class="item-link"></span>
+	        										<% else %>
+	        											<%= link_to image_tag("http://placehold.it/370x210"), restaurant %>
+	        											<span class="dark-overlay"></span>
+	        											<span class="item-link"></span>
+													<%end%>
+	        										
+        										</a>
+        									</div>
+        									<div class="col-md-8 col-sm-6">
+        										<div class="property-descr">
+        											<h1><b><%= link_to restaurant.name, restaurant %></b></h1>
+        											<h3><b>Phone: <%=restaurant.phone%></b></h3>
+        											<h3><b>Location: <%=restaurant.city.capitalize%>, <%=restaurant.state.upcase %></b></h3>
+        										    
+        										</div>
+        									</div>
+        								</div>
+        							</div>
+        						</div><!-- //item 1 -->   
+						<%end %><%end %>
+					</div>
+				</div>
+			</div>

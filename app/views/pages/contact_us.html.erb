@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="libs/bootstrap-slider/css/bootstrap-slider.css">
+	<link rel="stylesheet" href="libs/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" href="libs/magnific-popup/dist/magnific-popup.css">
+	<link rel="stylesheet" href="style.css">
+	
+	<!-- ICONS Links -->
+	<link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="img/favicon/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="img/favicon/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="img/favicon/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon-180x180.png">
+</head>
+
+<body>
+
+	
+
+	<!-- PAGE MAIN CONTENT -->
+	<main class="main-content">
+
+		<!-- section INTRO -->
+		<section class="section-intro image-bg">
+			<header class="section-heading">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<h1>Contact Us</h1>
+						</div>
+					</div>
+				</div>
+			</header>
+			<span class="color-overlay-gradient gradient1"></span>
+		</section><!-- //section INTRO -->
+
+		
+
+		<!-- section CONTACT MAP -->
+		<section class="section-contact-map no-padding">
+			<div class="container">
+				<!-- section content -->
+				<div class="section-content">
+					<div class="row">
+						<div class="col-md-4 col-sm-6">
+							<div class="info-block" id="info-block-contact">
+								<h2>Contact Us</h2>
+								<p>
+									광고 제약 문의
+								</p>
+								<p>
+									<center>환영!</center>
+								</p>
+								
+								<ul class="contact-info contact-list">
+									<li class="contact-phone-number"><i class="fa fa-phone"></i><a href="#">***-****-****</a></li>
+									<li class="contact-email"><i class="fa fa-envelope-o"></i><a href="#">mujjangei@likelion.com</a></li>
+									<li class="contact-address"><i class="fa fa-map-marker"></i><a href="#">Elysium St, Los Angeles, EL 453018</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-8 col-sm-6">
+							<div class="google-map" id="contact-map">
+								
+							</div>
+						</div>
+					</div>
+				</div><!-- //section content -->
+			</div>
+		</section><!-- section CONTACT MAP -->
+		
+		<!-- section CONTACT FORM -->
+		<section class="section-contact-form bottom-separator">
+			<!-- section heading -->
+			<header class="section-heading">
+				<div class="container">
+					<div class="row">
+						<h2>Send Your Message</h2>
+						<img src="img/separation-header.png" alt="">
+					</div>
+				</div>
+			</header><!-- //section heading -->
+			<!-- section content -->
+			<div class="section-content">
+				<form action="/" method="GET" class="contact-form">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<input type="text" name="visitor-name" placeholder="Your Name *" required>
+							</div>
+							<div class="col-md-6 col-sm-6">
+								<input type="text" name="visitor-email" placeholder="Your Email">
+							</div>
+							<div class="col-md-12">
+								<textarea name="visitor-message" placeholder="Your Message"></textarea>
+							</div>
+							<div class="col-md-12">
+								<button type="submit">Send Message</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div><!-- //section content -->
+		</section><!-- //section CONTACT FORM -->
+
+
+
+	<!-- HIDDEN ELEMENTS -->
+	<div class="hidden">
+
+	</div><!-- //HIDDEN ELEMENTS -->
+
+	<!-- SCRIPTS -->
+	<script src="js/modernizr.js"></script>
+	<script src="libs/jquery/jquery-1.11.2.min.js"></script>
+	<script src="js/plugins-scroll.js"></script>
+	<script src="libs/waypoints/lib/waypoints.js"></script>
+	<script src="js/jquery.counterup.js"></script>
+	<script src="js/imagesloaded.pkgd.js"></script>
+	<script src="libs/bootstrap/js/bootstrap.js"></script>
+	<script src="libs/bootstrap-slider/bootstrap-slider.js"></script>
+	<script src="js/jquery.equalheights.js"></script>
+	<script src="libs/masonry-layout/dist/masonry.pkgd.js"></script>
+	<script src="libs/magnific-popup/dist/jquery.magnific-popup.js"></script>
+	<script src="js/common.js"></script>
+
+	<!-- PAGE CUSTOM SCRIPTS -->
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script>
+		var locations = [
+		['DongDuk Womens Univ.', 37.606616, 127.042294, 4],
+		];
+
+		var map = new google.maps.Map(document.getElementById('contact-map'), {
+			zoom: 16,
+			center: new google.maps.LatLng(37.606616, 127.042294),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+
+		var infowindow = new google.maps.InfoWindow();
+
+		var marker, i;
+
+		for (i = 0; i < locations.length; i++) {  
+			marker = new google.maps.Marker({
+				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+				map: map
+			});
+
+			google.maps.event.addListener(marker, 'click', (function(marker, i) {
+				return function() {
+					infowindow.setContent(locations[i][0]);
+					infowindow.open(map, marker);
+				}
+			})(marker, i));
+		}
+	</script>
+	<script>
+		$(document).ready(function() {
+			$('#info-block-contact, #contact-map').equalHeights();
+		});
+	</script>
+	<!--[if lt IE 9]>
+	<script src="libs/html5shiv/es5-shim.min.js"></script>
+	<script src="libs/html5shiv/html5shiv.min.js"></script>
+	<script src="libs/html5shiv/html5shiv-printshiv.min.js"></script>
+	<script src="libs/respond/respond.min.js"></script>
+	<![endif]-->
+
+</body>
+</html>

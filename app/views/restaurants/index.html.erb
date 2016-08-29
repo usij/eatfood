@@ -1,0 +1,203 @@
+
+
+    <!-- Navigation -->
+
+    <!-- Page Content -->
+    <div class="container">
+
+        
+
+        
+        <!-- section content -->
+			
+				
+	</div><!-- //section content -->
+	
+	<!-- section INTRO -->
+		<section class="section-intro image-bg">
+			<header class="section-heading">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<h1><b>E A T F O O D</b></h1>
+							<p>Best Restaurant Review</p>
+							<p><%= link_to "Write a Review", new_restaurant_path, class: "btn btn-primary btn-large" %></p>
+						</div>
+					</div>
+				</div>
+			</header>
+			<span class="color-overlay-gradient gradient1"></span>
+		</section><!-- //section INTRO -->
+		<!-- //section FILTER -->
+        <hr>
+        
+        <div class="container">
+            <div class="search-form">
+            <center> <h1>Find Restaurant</h1> </center>
+            	<%= form_tag search_restaurants_path, method: :get do |f| %>
+            		<%= text_field_tag :search, nil, placeholder: "steaks, burgers, hot dogs, etc."%>
+            		<%= text_field_tag :location, nil, placeholder: "denver, miami, etc."%>
+            		<%= select_tag :category, options_for_select(Category.all.map{ |c| [c.name, c.id]}) %>
+            		<br><Br>
+            		<%= submit_tag 'Search', class: "btn span2 btn-realto-form btn-large"%>
+            		<Br>		
+            		<% end %>
+            </div>
+                <hr>
+         </div>      
+        <!-- Pagination -->
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <ul class="pagination">
+                    
+                    <li class="active">
+                       <%= link_to "전체보기", search_restaurants_path %>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+        
+       <!-- Projects Row -->
+        <div class="row">
+            <h1><b><center><font color='grey'>최신순</font></center></b></h1><BR>
+            <% @restaurants.last(3).each do |restaurant| %>
+                <div class="col-md-4 portfolio-item">
+                    <a href="#">
+                        <% if restaurant.image_url.present? %>
+        					<%= link_to image_tag(restaurant.image_url.to_s, :width => 370, :height => 210), restaurant %>
+        											
+	        				
+	        				<span class="item-link"></span>
+	        			<% else %>
+	        				<%= link_to image_tag("http://placehold.it/370x210"), restaurant %>
+	        				
+	        				<span class="item-link"></span>
+						<%end%>
+                    </a>
+                    <% if restaurant.reviews.present? %>
+                        <span class="property-price star-rating" data-score= <%= restaurant.reviews.average(:rating).round(2) %>></span>
+                    <% else %>
+                        <span class="property-price">No reviews yet!</span>
+                    <%end%>
+                    <h3>
+                        <%= link_to restaurant.name, restaurant %>
+                    </h3>
+                    <p><h3><b>Location:</b></h3> <%=restaurant.city %>,<%=restaurant.state.upcase %></p>
+                    <p><h3><b>Category:</b></h3> <%=restaurant.category.name %></p>
+                </div>
+            <%end %>
+        </div>
+        <!-- /.row -->
+
+        <!-- Projects Row -->
+        <div class="row">
+            <% @restaurants.order(:id).reverse_order.limit(3).offset(3).each do |restaurant| %>
+                <div class="col-md-4 portfolio-item">
+                    <a href="#">
+                        <% if restaurant.image_url.present? %>
+        					<%= link_to image_tag(restaurant.image_url.to_s, :width => 370, :height => 210), restaurant %>
+        											
+	        				
+	        				<span class="item-link"></span>
+	        			<% else %>
+	        				<%= link_to image_tag("http://placehold.it/370x210"), restaurant %>
+	        				
+	        				<span class="item-link"></span>
+						<%end%>
+                    </a>
+                    <% if restaurant.reviews.present? %>
+                        <span class="property-price star-rating" data-score= <%= restaurant.reviews.average(:rating).round(2) %>></span>
+                    <% else %>
+                        <span class="property-price">No reviews yet!</span>
+                    <%end%>
+                    <h3>
+                        <%= link_to restaurant.name, restaurant %>
+                    </h3>
+                    <p><h3><b>Location:</b></h3> <%=restaurant.city %>,<%=restaurant.state.upcase %></p>
+                    <p><h3><b>Category:</b></h3> <%=restaurant.category.name %></p>
+                </div>
+            <%end %>
+        </div>
+
+        <!-- Projects Row -->
+        <div class="row">
+            <% @restaurants.order(:id).reverse_order.limit(3).offset(6).each do |restaurant| %>
+                <div class="col-md-4 portfolio-item">
+                    <a href="#">
+                        <% if restaurant.image_url.present? %>
+        					<%= link_to image_tag(restaurant.image_url.to_s, :width => 370, :height => 210), restaurant %>
+        											
+	        				
+	        				<span class="item-link"></span>
+	        			<% else %>
+	        				<%= link_to image_tag("http://placehold.it/370x210"), restaurant %>
+	        				
+	        				<span class="item-link"></span>
+						<%end%>
+                    </a>
+                    <% if restaurant.reviews.present? %>
+                        <span class="property-price star-rating" data-score= <%= restaurant.reviews.average(:rating).round(2) %>></span>
+                    <% else %>
+                        <span class="property-price">No reviews yet!</span>
+                    <%end%>
+                    <h3>
+                        <%= link_to restaurant.name, restaurant %>
+                    </h3>
+                    <p><h3><b>Location:</b></h3> <%=restaurant.city %>,<%=restaurant.state.upcase %></p>
+                    <p><h3><b>Category:</b></h3> <%=restaurant.category.name %></p>
+                </div>
+            <%end %>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+        
+       
+
+    <div class="container">     
+    <i><b>Mexican음식이 땡길 때!</b></i>
+        <% @mexican_restaurants.limit(5).each do |restaurant| %>
+        
+        <ul>
+            <li><%=link_to restaurant.name, restaurant %> 
+            <% if restaurant.reviews.present? %>
+                <span class="qty pull-right star-rating" data-score=<%= restaurant.reviews.average(:rating).round(2)%>></span>
+            <% else %>
+                <span class="qty pull-right"> No reviews yet!</span>
+            <%end%>
+            </li>
+        </ul>
+        <% end %>
+    
+        <%= link_to "Continue &raquo".html_safe, mexican_path %>
+        <!-- /.container -->
+    </div>
+    <Br>
+    <div class="container">   
+    <i><b>Italian음식이 땡길 때!</b></i>
+        <% @italian_restaurants.limit(5).each do |restaurant| %>
+        
+        <ul>
+            <li><%=link_to restaurant.name, restaurant %> 
+            <% if restaurant.reviews.present? %>
+                <span class="qty pull-right star-rating" data-score=<%= restaurant.reviews.average(:rating).round(2)%>></span>
+            <% else %>
+                <span class="qty pull-right"> No reviews yet!</span>
+            <%end%>
+            </li>
+        </ul>
+        <% end %>
+    
+        <%= link_to "Continue &raquo".html_safe, italian_path %>
+        <!-- /.container -->
+    </div> 
+    <br>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+	
